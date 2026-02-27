@@ -23,7 +23,7 @@ Este repositório contém o desenvolvimento do projeto acadêmico voltado à pad
 | **Maíra Silva Edo** | 24203688 | Polo Diadema | Ciência de Dados |
 | **Larissa de Souza Aguiar** | 24206943 | Polo Embu das Artes | Ciência de Dados |
 | **Mariana dos Reis Silva** | 24210121 | Polo Diadema | Ciência de Dados |
-| **Wallace Eliziario de Souza** | 24215671 | Polo Diadema | - |
+| **Wallace Eliziario de Souza** | 24215671 | Polo Diadema | Ciência de Dados |
 
 ---
 
