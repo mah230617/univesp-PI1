@@ -29,9 +29,13 @@ Este repositório contém o desenvolvimento do projeto acadêmico voltado à pad
 
 ### 🎯 Objetivo do Projeto
 Desenvolver um sistema robusto e padronizado para o cadastro de clientes, aplicando conceitos fundamentais de computação e engenharia de dados. O projeto visa:
-* **Padronização:** Garantir que os dados inseridos sigam máscaras e regras de negócio rígidas.
+* **Padronização:** Garantir que os dados inseridos sigam regras de negócio estabelecidas.
 * **Integridade:** Evitar duplicidade e inconsistências na base de dados.
 * **Prática Acadêmica:** Aplicar os conhecimentos adquiridos ao longo dos semestres do eixo de computação.
+* **Objetivo Acadêmico:** Desenvolver um software com framework web que utilize noções de banco de
+dados, praticando controle de versão.
+* **Ementa:** Resolução de problemas; Levantamento de requisitos; Desenvolvimento web
+com framework; HTML; CSS; Banco de Dados; Controle de Versão.
 
 ### 🛠️ Tecnologias e Ferramentas
 * **Linguagem de Programação:** [       ]
