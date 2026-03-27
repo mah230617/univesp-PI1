@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Login Admin</title>
+</head>
+<body>
+    <div class="container">
+        <img src="{{ url_for('static', filename='logo.png') }}" class="login-logo" alt="Logo Visual Produções">
+        <h2>Acesso Administrativo</h2>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}<p style="color: red;">{{ messages[0] }}</p>{% endif %}
+        {% endwith %}
+        <form action="/login" method="POST">
+            <input type="text" name="username" placeholder="Usuário" required>
+            <input type="password" name="password" placeholder="Senha" required>
+            <button type="submit" style="background-color: #007bff;">Entrar</button>
+        </form>
+    </div>
+</body>
+</html>

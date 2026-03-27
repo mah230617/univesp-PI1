@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Editar Cliente - Visual Produções</title>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header-area">
+            <div class="title-with-logo">
+                <img src="{{ url_for('static', filename='logo.png') }}" class="header-logo" alt="Logo">
+                <h1>Editar Cliente</h1>
+            </div>
+            <a href="/index" class="btn-logout" style="color: #666;">Voltar ao Início</a>
+        </div>
+
+        <div class="form-section">
+            <form action="/edit/{{ cliente.id }}" method="POST" class="add-form" id="editForm">
+                
+                <div class="field-group" style="width: 100%;">
+                    <label>Nome Completo / Razão Social</label>
+                    <input type="text" name="nome" value="{{ cliente.nome }}" class="input-large" required>
+                </div>
+
+                <div class="field-group" style="width: 100%;">
+                    <label>E-mail</label>
+                    <input type="email" name="email" value="{{ cliente.email }}" class="input-large" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="field-group">
+                        <label>CPF ou CNPJ</label>
+                        <input type="text" name="cpf" id="cpf" value="{{ cliente.cpf }}" class="input-small" required>
+                    </div>
+                    <div class="field-group">
+                        <label>Data de Nascimento</label>
+                        <input type="text" name="data_nascimento" id="data_nasc" value="{{ cliente.data_nascimento }}" class="input-small">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="field-group">
+                        <label>Telefone</label>
+                        <input type="text" name="telefone" id="telefone" value="{{ cliente.telefone }}" class="input-small" required>
+                    </div>
+                    <div class="field-group">
+                        <label>CEP</label>
+                        <input type="text" name="cep" id="cep" value="{{ cliente.cep }}" class="input-small" onblur="buscaCEP()" required>
+                    </div>
+                </div>
+
+                <div class="field-group" style="width: 100%;">
+                    <label>Rua / Logradouro</label>
+                    <input type="text" name="logradouro" id="logradouro" value="{{ cliente.logradouro }}" class="input-large" required>
+                </div>
+
+                <div class="field-group" style="width: 100%;">
+                    <label>Bairro</label>
+                    <input type="text" name="bairro" id="bairro" value="{{ cliente.bairro }}" class="input-large" required>
+                </div>
+
+                <div class="form-row-triple">
+                    <div class="field-group" style="flex: 1;">
+                        <label>Nº</label>
+                        <input type="text" name="numero" id="numero" value="{{ cliente.numero }}" class="input-small" required>
+                    </div>
+                    <div class="field-group" style="flex: 2;">
+                        <label>Complemento</label>
+                        <input type="text" name="complemento" id="complemento" value="{{ cliente.complemento }}" class="input-small">
+                    </div>
+                    <div class="field-group" style="flex: 2;">
+                        <label>Cidade</label>
+                        <input type="text" name="cidade" id="cidade" value="{{ cliente.cidade }}" class="input-small" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-main" style="background-color: #ffc107; color: #000; margin-top: 20px;">Salvar Alterações</button>
+                <a href="/index" class="btn-cancel">Cancelar e sair</a>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-masker/1.2.0/vanilla-masker.min.js"></script>
+    <script>
+        // 1. MÁSCARA DINÂMICA (CPF/CNPJ)
+        var docField = document.getElementById('cpf');
+        function inputHandler(masks, max, event) {
+            var c = event.target;
+            var v = c.value.replace(/\D/g, '');
+            var m = v.length <= 11 ? masks[0] : masks[1];
+            VMasker(c).unMask();
+            VMasker(c).maskPattern(m);
+            c.value = VMasker.toPattern(v, m);
+        }
+        docField.addEventListener('input', inputHandler.bind(undefined, ["999.999.999-99", "99.999.999/9999-99"], 14), false);
+        
+        // Disparar a máscara ao carregar para formatar o que vem do banco
+        VMasker(docField).maskPattern(docField.value.replace(/\D/g, '').length <= 11 ? "999.999.999-99" : "99.999.999/9999-99");
+
+        // Outras Máscaras
+        VMasker(document.getElementById('telefone')).maskPattern("(99) 99999-9999");
+        VMasker(document.getElementById('data_nasc')).maskPattern("99/99/9999");
+        VMasker(document.getElementById('cep')).maskPattern("99999-999");
+
+        // 2. BUSCA CEP
+        function buscaCEP() {
+            let cep = document.getElementById('cep').value.replace(/\D/g, '');
+            if (cep.length === 8) {
+                fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (!data.erro) {
+                            document.getElementById('logradouro').value = data.logradouro;
+                            document.getElementById('bairro').value = data.bairro;
+                            document.getElementById('cidade').value = data.localidade;
+                            document.getElementById('complemento').value = "";
+                            document.getElementById('numero').focus();
+                        }
+                    });
+            }
+        }
+
+        // 3. VALIDAÇÃO CPF/CNPJ
+        function validarDocumento(valor) {
+            valor = valor.replace(/[^\d]+/g, '');
+            if (valor.length === 11) return validarCPF(valor);
+            if (valor.length === 14) return validarCNPJ(valor);
+            return false;
+        }
+
+        function validarCPF(cpf) {
+            if (/^(\d)\1{10}$/.test(cpf)) return false;
+            let add = 0;
+            for (let i = 0; i < 9; i++) add += parseInt(cpf.charAt(i)) * (10 - i);
+            let rev = 11 - (add % 11);
+            if (rev == 10 || rev == 11) rev = 0;
+            if (rev != parseInt(cpf.charAt(9))) return false;
+            add = 0;
+            for (let i = 0; i < 10; i++) add += parseInt(cpf.charAt(i)) * (11 - i);
+            rev = 11 - (add % 11);
+            if (rev == 10 || rev == 11) rev = 0;
+            return rev == parseInt(cpf.charAt(10));
+        }
+
+        function validarCNPJ(cnpj) {
+            if (/^(\d)\1{13}$/.test(cnpj)) return false;
+            let tamanho = cnpj.length - 2;
+            let numeros = cnpj.substring(0, tamanho);
+            let digitos = cnpj.substring(tamanho);
+            let soma = 0, pos = tamanho - 7;
+            for (let i = tamanho; i >= 1; i--) {
+                soma += numeros.charAt(tamanho - i) * pos--;
+                if (pos < 2) pos = 9;
+            }
+            let res = soma % 11 < 2 ? 0 : 11 - (soma % 11);
+            if (res != digitos.charAt(0)) return false;
+            tamanho++; numeros = cnpj.substring(0, tamanho); soma = 0; pos = tamanho - 7;
+            for (let i = tamanho; i >= 1; i--) {
+                soma += numeros.charAt(tamanho - i) * pos--;
+                if (pos < 2) pos = 9;
+            }
+            res = soma % 11 < 2 ? 0 : 11 - (soma % 11);
+            return res == digitos.charAt(1);
+        }
+
+        document.getElementById('editForm').onsubmit = function(e) {
+            if (!validarDocumento(document.getElementById('cpf').value)) {
+                alert("Documento (CPF/CNPJ) inválido!");
+                e.preventDefault();
+            }
+        };
+    </script>
+</body>
+</html>
