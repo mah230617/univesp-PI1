@@ -16,13 +16,13 @@ Este repositório contém o desenvolvimento do projeto acadêmico voltado à pad
 
 | Nome | RA | Polo | Curso |
 | :--- | :--- | :--- | :--- |
-| **Kaique Lourenço de Andrade** | 24214438 | Polo Itapevi | Tecnologia da Informação |
 | **Gilmar Benedito de Souza Junior** | 1705846 | Polo Guarulhos | Ciência de Dados |
-| **Thiago Augusto Pereira** | 1811675 | Polo Carapicuiba | Ciência de Dados |
+| **Kaique Lourenço de Andrade** | 24214438 | Polo Itapevi | Tecnologia da Informação |
+| **Larissa de Souza Aguiar** | 24206943 | Polo Embu das Artes | Ciência de Dados |
 | **Luiz Antonio Lopes Junior** | 1706120 | Polo Mogi das Cruzes | Engenharia da Computação |
 | **Maíra Silva Edo** | 24203688 | Polo Diadema | Ciência de Dados |
-| **Larissa de Souza Aguiar** | 24206943 | Polo Embu das Artes | Ciência de Dados |
 | **Mariana dos Reis Silva** | 24210121 | Polo Diadema | Ciência de Dados |
+| **Thiago Augusto Pereira** | 1811675 | Polo Carapicuiba | Ciência de Dados |
 | **Wallace Eliziario de Souza** | 24215671 | Polo Diadema | Ciência de Dados |
 
 ---
@@ -38,7 +38,7 @@ dados, praticando controle de versão.
 com framework; HTML; CSS; Banco de Dados; Controle de Versão.
 
 ### 🛠️ Tecnologias e Ferramentas
-* **Linguagem de Programação:** [       ]
+* **Linguagem de Programação:** Python - framework flask
 * **Banco de Dados:** [        ]
 * **Versionamento:** Git e GitHub
 * **Documentação:** Markdown
@@ -46,9 +46,9 @@ com framework; HTML; CSS; Banco de Dados; Controle de Versão.
 ---
 
 ### 📁 Estrutura de Diretórios
-* `/src`: Código-fonte da aplicação.
+* `/static`: Arquivos de imagens e arquivo CSS.
+* `/Templates`: páginas .html .
 * `/docs`: Documentação técnica e relatórios do PI.
-* `/database`: Scripts de criação e modelagem do banco.
 
 ---
 > *Este projeto faz parte da grade curricular da UNIVESP e possui fins estritamente educativos e de pesquisa.*
