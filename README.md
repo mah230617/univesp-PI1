@@ -39,7 +39,7 @@ com framework; HTML; CSS; Banco de Dados; Controle de Versão.
 
 ### 🛠️ Tecnologias e Ferramentas
 * **Linguagem de Programação:** Python - framework flask
-* **Banco de Dados:** [        ]
+* **Banco de Dados:** SQLite
 * **Versionamento:** Git e GitHub
 * **Documentação:** Markdown
 
